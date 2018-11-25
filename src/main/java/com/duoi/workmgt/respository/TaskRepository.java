@@ -1,9 +1,22 @@
 package com.duoi.workmgt.respository;
 
-import com.duoi.workmgt.domain.Task;
-import com.duoi.workmgt.domain.User;
+import com.duoi.workmgt.domain.*;
+import org.joda.time.LocalTime;
 import org.springframework.data.repository.CrudRepository;
+import java.util.List;
+import java.util.Optional;
 
 public interface TaskRepository extends CrudRepository<Task, Long> {
 
+    Optional<Task> findByName(String name);
+
+    List<Task> findAllByEndOfTask(LocalTime endOfTask);
+
+    List<Task> findAllByBeginningOfTask(LocalTime beginOfTask);
+
+    List<Task>  findAllByDay(Day day);
+
+    List<Task> findAllByMenager(Menager menager);
+
+    List<Task> findAllByEmployees(List<Employee> employees);
 }
