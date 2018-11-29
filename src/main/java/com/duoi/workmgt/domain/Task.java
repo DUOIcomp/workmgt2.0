@@ -1,6 +1,7 @@
 package com.duoi.workmgt.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import java.util.List;
 @Entity
 @Data
 @AllArgsConstructor
+@Builder
 public class Task {
     @Id
     @GeneratedValue
@@ -24,13 +26,13 @@ public class Task {
 
     private String description;
 
-    @ManyToMany(targetEntity = Employee.class)
-    @Size(min = 1,message = "You must choose at least 1 employee")
+    @ManyToMany
+   // @Size(min = 1,message = "You must choose at least 1 employee")
     private List<Employee> employees = new ArrayList<>();
 
-    @ManyToOne(targetEntity = Menager.class)
-    @JoinColumn(name = "menager")
-    private Menager menager;
+    @ManyToOne(targetEntity = Manager.class)
+    @JoinColumn(name = "manager")
+    private Manager manager;
 
     private LocalTime beginningOfTask;
 

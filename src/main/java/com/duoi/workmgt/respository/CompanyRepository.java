@@ -2,7 +2,7 @@ package com.duoi.workmgt.respository;
 
 import com.duoi.workmgt.domain.Company;
 import com.duoi.workmgt.domain.Employee;
-import com.duoi.workmgt.domain.Menager;
+import com.duoi.workmgt.domain.Manager;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -14,6 +14,6 @@ public interface CompanyRepository extends CrudRepository<Company,Long> {
 
     Optional<Company> findByEmployees(List<Employee> employees);
 
-    Optional<Company> findByMenagers(List<Menager> menagers);
+    Optional<Company> findByManagers(List<Manager> managers);
 
 }

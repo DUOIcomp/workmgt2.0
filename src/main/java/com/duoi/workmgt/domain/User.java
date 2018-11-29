@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
 @Data
 @NoArgsConstructor
@@ -43,6 +43,9 @@ public abstract class User {
     @Column(length = 254, unique = true)
     private String email;
 
-    private boolean activated = false;
+    private boolean activated;
 
+    public boolean getActivated() {
+        return this.activated;
     }
+}

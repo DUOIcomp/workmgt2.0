@@ -8,6 +8,8 @@ import java.util.Optional;
 
 public interface TaskRepository extends CrudRepository<Task, Long> {
 
+    Optional<Task> findById(Long id);
+
     Optional<Task> findByName(String name);
 
     List<Task> findAllByEndOfTask(LocalTime endOfTask);
@@ -16,7 +18,7 @@ public interface TaskRepository extends CrudRepository<Task, Long> {
 
     List<Task>  findAllByDay(Day day);
 
-    List<Task> findAllByMenager(Menager menager);
+    List<Task> findAllByManager(Manager manager);
 
     List<Task> findAllByEmployees(List<Employee> employees);
 }

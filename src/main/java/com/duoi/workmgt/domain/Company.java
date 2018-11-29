@@ -16,7 +16,7 @@ public class Company {
 
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
     private String companyName;
 
@@ -26,7 +26,7 @@ public class Company {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "companyId")
-    private List<Menager> menagers = new ArrayList<>();
+    private List<Manager> managers = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "companyId")

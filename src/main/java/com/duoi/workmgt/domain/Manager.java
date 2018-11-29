@@ -12,8 +12,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Menager extends User {
+public class Manager extends User {
 
-    @OneToMany(mappedBy = "menager")
+    @OneToMany(mappedBy = "manager")
     private List<Task> orderedTasks;
 }
