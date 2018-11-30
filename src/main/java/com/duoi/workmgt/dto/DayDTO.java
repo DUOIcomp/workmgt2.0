@@ -18,6 +18,8 @@ public class DayDTO {
 
     private List<TaskDTO> tasks;
 
+    private CompanyDTO company;
+
     public DayDTO(){
     }
 
@@ -27,6 +29,7 @@ public class DayDTO {
         this.tasks = day.getTasks().stream()
                 .map(task -> new TaskDTO(task))
                 .collect(Collectors.toList());
+        this.company = new CompanyDTO(day.getCompany());
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.duoi.workmgt.service;
 
+import com.duoi.workmgt.domain.Day;
+import com.duoi.workmgt.domain.Employee;
 import com.duoi.workmgt.domain.Task;
 import com.duoi.workmgt.respository.DayRepository;
 import com.duoi.workmgt.respository.EmployeeRepository;
@@ -11,6 +13,7 @@ import org.hibernate.ObjectNotFoundException;
 
 import javax.transaction.Transactional;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class TaskServiceImpl implements TaskService{
@@ -33,7 +36,8 @@ public class TaskServiceImpl implements TaskService{
     @Override
     @Transactional(rollbackOn = {MessagingException.class,ObjectNotFoundException.class})
     public void saveTask(TaskDTO taskDTO) {
-            Task task = Task.builder()
+            taskRepository.save(
+                    Task.builder()
                     .name(taskDTO.getName())
                     .day(dayRepository.findById(taskDTO.getDay().getId()).orElse(null))
                     .description(taskDTO.getDescription())
@@ -41,28 +45,27 @@ public class TaskServiceImpl implements TaskService{
                     .endOfTask(LocalTime.parse(taskDTO.getEndOfTask()))
                     .manager(managerRepository.findById(taskDTO.getManager().getId()).orElse(null))
                     .employees(taskDTO.getEmployees().stream()
-                                    .map(employeeDTO -> employeeRepository.findById(employeeDTO.getId()).orElse(null))
-                                    .collect(Collectors.toList())
-                            )
-                    .build();
-
-            taskRepository.save(task);
+                            .map(employeeDTO -> employeeRepository.findById(employeeDTO.getId()).orElse(null))
+                            .collect(Collectors.toList())
+                    )
+                    .build());
     }
 
     @Override
     public Task readTaskById(Long id) {
-        Task foundTask = taskRepository.findById(id)
+        return taskRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException(Task.class,"taskId"));
-
-        return foundTask;
     }
 
     @Override
     public Task readTaskByName(String name) {
-        Task foundTask = taskRepository.findByName(name)
+        return taskRepository.findByName(name)
                 .orElseThrow(()-> new ObjectNotFoundException(Task.class,"taskName"));
+    }
 
-        return foundTask;
+    @Override
+    public List<Task> readTaskByDayAndEmployee(Employee employee, Day day) {
+        return taskRepository.findAllByDayAndEmployeesContains(day,employee);
     }
 
     @Override

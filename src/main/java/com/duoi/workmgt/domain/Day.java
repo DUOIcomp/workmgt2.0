@@ -1,6 +1,7 @@
 package com.duoi.workmgt.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -14,6 +15,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Day {
     @Id
     @Column(name = "dayId")
@@ -24,5 +26,8 @@ public class Day {
 
     @OneToMany(mappedBy = "day" , cascade = CascadeType.ALL)
     private List<Task> tasks = new ArrayList<>();
+
+    @ManyToOne(targetEntity = Company.class)
+    private Company company;
 }
 

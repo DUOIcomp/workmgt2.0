@@ -1,10 +1,14 @@
 package com.duoi.workmgt.dto;
 
 import com.duoi.workmgt.domain.Company;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Getter
+@Setter
 public class CompanyDTO {
 
     private Long id;

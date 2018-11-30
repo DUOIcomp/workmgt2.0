@@ -20,5 +20,5 @@ public interface TaskRepository extends CrudRepository<Task, Long> {
 
     List<Task> findAllByManager(Manager manager);
 
-    List<Task> findAllByEmployees(List<Employee> employees);
+    List<Task> findAllByDayAndEmployeesContains(Day day,Employee employees);
 }

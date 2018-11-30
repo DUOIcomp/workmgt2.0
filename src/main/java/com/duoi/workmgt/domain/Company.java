@@ -21,8 +21,7 @@ public class Company {
     private String companyName;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "companyId")
-    private List<Day> calendar = new ArrayList<>();
+    private List<Day> calendar;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "companyId")

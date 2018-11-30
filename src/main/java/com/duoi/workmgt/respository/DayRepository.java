@@ -1,5 +1,6 @@
 package com.duoi.workmgt.respository;
 
+import com.duoi.workmgt.domain.Company;
 import com.duoi.workmgt.domain.Day;
 import org.springframework.data.repository.CrudRepository;
 
@@ -11,4 +12,7 @@ public interface DayRepository extends CrudRepository<Day,Long> {
 
     List<Day> findAllByDate(LocalDate date);
 
+    Optional<Day> findByCompanyIdAndDate(Long companyId,LocalDate date);
+
+    Optional<Day> findByCompanyAndDate(Company company,LocalDate date);
 }
