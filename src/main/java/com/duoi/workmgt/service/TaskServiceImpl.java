@@ -36,19 +36,19 @@ public class TaskServiceImpl implements TaskService{
     @Override
     @Transactional(rollbackOn = {MessagingException.class,ObjectNotFoundException.class})
     public void saveTask(TaskDTO taskDTO) {
-            taskRepository.save(
-                    Task.builder()
-                    .name(taskDTO.getName())
-                    .day(dayRepository.findById(taskDTO.getDay().getId()).orElse(null))
-                    .description(taskDTO.getDescription())
-                    .beginningOfTask(LocalTime.parse(taskDTO.getBeginningOfTask()))
-                    .endOfTask(LocalTime.parse(taskDTO.getEndOfTask()))
-                    .manager(managerRepository.findById(taskDTO.getManager().getId()).orElse(null))
-                    .employees(taskDTO.getEmployees().stream()
-                            .map(employeeDTO -> employeeRepository.findById(employeeDTO.getId()).orElse(null))
-                            .collect(Collectors.toList())
-                    )
-                    .build());
+//            taskRepository.save(
+//                    Task.builder()
+//                    .name(taskDTO.getName())
+//                    .day(dayRepository.findById(taskDTO.getDay().getId()).orElse(null))
+//                    .description(taskDTO.getDescription())
+//                    .beginningOfTask(LocalTime.parse(taskDTO.getBeginningOfTask()))
+//                    .endOfTask(LocalTime.parse(taskDTO.getEndOfTask()))
+//                    .manager(managerRepository.findById(taskDTO.getManager().getId()).orElse(null))
+//                    .employees(taskDTO.getEmployees().stream()
+//                            .map(employeeDTO -> employeeRepository.findById(employeeDTO.getId()).orElse(null))
+//                            .collect(Collectors.toList())
+//                    )
+//                    .build());
     }
 
     @Override

@@ -11,7 +11,7 @@ import org.hibernate.ObjectNotFoundException;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.util.stream.Collectors;
+
 
 public class DayServiceImpl implements DayService {
 
@@ -31,17 +31,7 @@ public class DayServiceImpl implements DayService {
     @Override
     @Transactional(rollbackOn = {MessagingException.class,ObjectNotFoundException.class})
     public void saveDay(DayDTO dayDTO) {
-        dayRepository.save(
-                Day.builder()
-                        .id(dayDTO.getId())
-                        .date(dayDTO.getDate())
-                        .tasks(dayDTO.getTasks().stream()
-                                .map(taskDTO -> taskRepository.findById(taskDTO.getTaskId()).orElse(null))
-                                .collect(Collectors.toList())
-                        )
-                        .company(companyRepository.findById(dayDTO.getCompany().getId()).orElse(null))
-                .build()
-        );
+
     }
 
     @Override
@@ -52,8 +42,7 @@ public class DayServiceImpl implements DayService {
 
     @Override
     public Day readDayByCompanyIdAndDate(Company company, LocalDate date) {
-        return dayRepository.findByCompanyAndDate(company,date)
-                .orElseThrow(() -> new ObjectNotFoundException(Day.class,"CompanyAndDate"));
+        return null;
     }
 
     @Override

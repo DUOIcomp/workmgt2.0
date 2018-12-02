@@ -12,8 +12,4 @@ public interface CompanyRepository extends CrudRepository<Company,Long> {
 
     Optional<Company> findByCompanyName(String name);
 
-    Optional<Company> findByEmployees(List<Employee> employees);
-
-    Optional<Company> findByManagers(List<Manager> managers);
-
 }

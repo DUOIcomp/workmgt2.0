@@ -2,9 +2,8 @@ package com.duoi.workmgt.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -13,7 +12,8 @@ import javax.validation.constraints.Size;
 
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public abstract class User {
@@ -45,7 +45,15 @@ public abstract class User {
 
     private boolean activated;
 
-    public boolean getActivated() {
-        return this.activated;
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", login='" + login + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", activated=" + activated +
+                '}';
     }
 }

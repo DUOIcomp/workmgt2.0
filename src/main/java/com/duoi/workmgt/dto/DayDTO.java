@@ -18,23 +18,21 @@ public class DayDTO {
 
     private List<TaskDTO> tasks;
 
-    private CompanyDTO company;
-
     public DayDTO(){
     }
 
     public DayDTO(Day day){
-        this.id = day.getId();
+        this.id = day.getDayId();
         this.date = day.getDate();
         this.tasks = day.getTasks().stream()
-                .map(task -> new TaskDTO(task))
+                .map(TaskDTO::new)
                 .collect(Collectors.toList());
-        this.company = new CompanyDTO(day.getCompany());
     }
 
     @Override
     public String toString() {
         return "DayDTO{" +
+                "id=" + id +
                 ", date=" + date +
                 ", tasks=" + tasks +
                 '}';

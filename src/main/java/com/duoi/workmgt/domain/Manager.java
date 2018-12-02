@@ -1,19 +1,18 @@
 package com.duoi.workmgt.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.google.common.collect.Lists;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.List;
 
 @Entity
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
 @NoArgsConstructor
 public class Manager extends User {
 
     @OneToMany(mappedBy = "manager")
-    private List<Task> orderedTasks;
+    private List<Task> orderedTasks = Lists.newArrayList();
 }

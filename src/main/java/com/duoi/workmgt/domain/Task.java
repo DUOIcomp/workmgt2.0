@@ -1,8 +1,7 @@
 package com.duoi.workmgt.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import com.google.common.collect.Lists;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -11,9 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
-@AllArgsConstructor
-@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@EqualsAndHashCode
 public class Task {
     @Id
     @GeneratedValue
@@ -27,8 +27,8 @@ public class Task {
     private String description;
 
     @ManyToMany
-   // @Size(min = 1,message = "You must choose at least 1 employee")
-    private List<Employee> employees = new ArrayList<>();
+    @Size(min = 1,message = "You must choose at least 1 employee")
+    private List<Employee> employees = Lists.newArrayList();
 
     @ManyToOne(targetEntity = Manager.class)
     @JoinColumn(name = "manager")
@@ -38,4 +38,17 @@ public class Task {
 
     private LocalTime endOfTask;
 
+    @Override
+    public String toString() {
+        return "Task{" +
+                "taskId=" + taskId +
+                ", day=" + day.getDate()+
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", employees=" + employees +
+                ", manager=" + manager +
+                ", beginningOfTask=" + beginningOfTask +
+                ", endOfTask=" + endOfTask +
+                '}';
+    }
 }

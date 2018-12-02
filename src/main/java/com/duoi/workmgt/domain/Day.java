@@ -1,9 +1,7 @@
 package com.duoi.workmgt.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.google.common.collect.Lists;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -12,22 +10,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
+@Getter
+@Setter
+@EqualsAndHashCode
 public class Day {
     @Id
-    @Column(name = "dayId")
-    private long id;
+    @GeneratedValue
+    private Long dayId;
 
-    @DateTimeFormat
     private LocalDate date;
 
     @OneToMany(mappedBy = "day" , cascade = CascadeType.ALL)
-    private List<Task> tasks = new ArrayList<>();
+    private List<Task> tasks = Lists.newArrayList();
 
-    @ManyToOne(targetEntity = Company.class)
-    private Company company;
+
+    public Day() {
+    }
+
+    public Day(LocalDate date) {
+        this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "Day{" +
+                "dayId=" + dayId +
+                ", date=" + date +
+                ", tasks=" + tasks +
+                '}';
+    }
 }
 

@@ -10,9 +10,6 @@ import java.util.Optional;
 
 public interface DayRepository extends CrudRepository<Day,Long> {
 
-    List<Day> findAllByDate(LocalDate date);
+    Optional<Day> findByDate(LocalDate date);
 
-    Optional<Day> findByCompanyIdAndDate(Long companyId,LocalDate date);
-
-    Optional<Day> findByCompanyAndDate(Company company,LocalDate date);
 }

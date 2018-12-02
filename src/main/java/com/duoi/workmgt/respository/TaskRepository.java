@@ -12,10 +12,6 @@ public interface TaskRepository extends CrudRepository<Task, Long> {
 
     Optional<Task> findByName(String name);
 
-    List<Task> findAllByEndOfTask(LocalTime endOfTask);
-
-    List<Task> findAllByBeginningOfTask(LocalTime beginOfTask);
-
     List<Task>  findAllByDay(Day day);
 
     List<Task> findAllByManager(Manager manager);

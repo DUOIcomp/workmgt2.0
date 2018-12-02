@@ -1,10 +1,12 @@
 package com.duoi.workmgt.dto;
 
 import com.duoi.workmgt.domain.Company;
+import com.duoi.workmgt.domain.User;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Getter
@@ -19,31 +21,37 @@ public class CompanyDTO {
     private List<DayDTO> calendar;
 
 
-    private List<ManagerDTO> managers;
+    private List<UserDTO> managers;
 
 
-    private List<EmployeeDTO> employees;
+    private List<UserDTO> employees;
 
-
-    private List<TaskDTO> tasks;
 
     public CompanyDTO() {
+    }
+
+    public CompanyDTO(Long id, String companyName, List<DayDTO> calendar, List<UserDTO> managers, List<UserDTO> employees) {
+        this.id = id;
+        this.companyName = companyName;
+        this.calendar = calendar;
+        this.managers = managers;
+        this.employees = employees;
     }
 
     public CompanyDTO(Company company) {
         this.id = company.getId();
         this.companyName = company.getCompanyName();
         this.calendar = company.getCalendar().stream()
-                    .map(day -> new DayDTO(day))
+                    .map(DayDTO::new)
+                    .filter(Objects::nonNull)
                     .collect(Collectors.toList());
         this.managers = company.getManagers().stream()
-                    .map(menager -> new ManagerDTO(menager))
+                    .map(UserDTO::new)
+                    .filter(Objects::nonNull)
                     .collect(Collectors.toList());
         this.employees = company.getEmployees().stream()
-                    .map(employee -> new EmployeeDTO(employee))
-                    .collect(Collectors.toList());
-        this.tasks = company.getTasks().stream()
-                    .map(task -> new TaskDTO(task))
+                    .map(UserDTO::new)
+                    .filter(Objects::nonNull)
                     .collect(Collectors.toList());
     }
 
@@ -52,9 +60,8 @@ public class CompanyDTO {
         return "CompanyDTO{" +
                 ", companyName='" + companyName + '\'' +
                 ", calendar=" + calendar +
-                ", menagers=" + managers +
+                ", managers=" + managers +
                 ", employees=" + employees +
-                ", tasks=" + tasks +
                 '}';
     }
 }
