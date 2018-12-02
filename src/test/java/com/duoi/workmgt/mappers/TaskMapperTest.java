@@ -2,12 +2,22 @@ package com.duoi.workmgt.mappers;
 
 import com.duoi.workmgt.domain.Task;
 import com.duoi.workmgt.dto.TaskDTO;
+import com.duoi.workmgt.dto.UserDTO;
+import com.duoi.workmgt.respository.DayRepository;
+import com.duoi.workmgt.respository.TaskRepository;
+import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.Mock;
+
+import java.util.stream.Collectors;
 
 import static TestObjectFactory.Factory.createTestTask;
 import static org.junit.Assert.*;
 
 public class TaskMapperTest {
+
+    @Mock
+    TaskRepository taskRepository;
 
     private TaskMapper taskMapper = new TaskMapper();
 
@@ -15,11 +25,26 @@ public class TaskMapperTest {
     public void taskToTaskDTO() {
         Task task = createTestTask();
 
-        System.out.println(task);
-        System.out.println(taskMapper.taskToTaskDTO(task));
+        TaskDTO taskDTO = taskMapper.taskToTaskDTO(task);
+
+        Assert.assertEquals(task.getName(),taskDTO.getName());
+        Assert.assertEquals(task.getTaskId(),taskDTO.getTaskId());
+        Assert.assertEquals(task.getDescription(),taskDTO.getDescription());
+        Assert.assertEquals(task.getBeginningOfTask(),taskDTO.getBeginningOfTask());
+        Assert.assertEquals(task.getEndOfTask(),taskDTO.getEndOfTask());
+        Assert.assertEquals(task.getEmployees().stream().map(UserDTO::new).collect(Collectors.toList()), taskDTO.getEmployees());
+        Assert.assertEquals(new UserDTO(task.getManager()), taskDTO.getManager());
+
     }
 
     @Test
     public void taskDTOToTask() {
+        Task task = createTestTask();
+        taskRepository.save(task);
+
+        TaskDTO taskDTO = taskMapper.taskToTaskDTO(task);
+        Task testTask = taskMapper.taskDTOToTask(taskDTO);
+
+        Assert.assertEquals(task,testTask);
     }
 }
