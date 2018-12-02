@@ -20,7 +20,7 @@ public class Day {
 
     private LocalDate date;
 
-    @OneToMany(mappedBy = "day" , cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Task> tasks = Lists.newArrayList();
 
 

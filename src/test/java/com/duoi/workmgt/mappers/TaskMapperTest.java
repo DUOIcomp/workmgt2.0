@@ -6,6 +6,7 @@ import com.duoi.workmgt.dto.UserDTO;
 import com.duoi.workmgt.respository.DayRepository;
 import com.duoi.workmgt.respository.TaskRepository;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
@@ -17,9 +18,17 @@ import static org.junit.Assert.*;
 public class TaskMapperTest {
 
     @Mock
-    TaskRepository taskRepository;
+    private EmployeeMapper employeeMapper;
 
-    private TaskMapper taskMapper = new TaskMapper();
+    @Mock
+    private ManagerMapper managerMapper;
+
+    private TaskMapper taskMapper;
+
+    @Before
+    public void setUp(){
+        taskMapper = new TaskMapper(employeeMapper,managerMapper);
+    }
 
     @Test
     public void taskToTaskDTO() {
@@ -40,7 +49,6 @@ public class TaskMapperTest {
     @Test
     public void taskDTOToTask() {
         Task task = createTestTask();
-        taskRepository.save(task);
 
         TaskDTO taskDTO = taskMapper.taskToTaskDTO(task);
         Task testTask = taskMapper.taskDTOToTask(taskDTO);

@@ -3,6 +3,7 @@ package com.duoi.workmgt.service;
 import com.duoi.workmgt.domain.Day;
 import com.duoi.workmgt.domain.Employee;
 import com.duoi.workmgt.domain.Task;
+import com.duoi.workmgt.mappers.TaskMapper;
 import com.duoi.workmgt.respository.DayRepository;
 import com.duoi.workmgt.respository.EmployeeRepository;
 import com.duoi.workmgt.respository.ManagerRepository;
@@ -12,9 +13,7 @@ import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 import org.hibernate.ObjectNotFoundException;
 
 import javax.transaction.Transactional;
-import java.time.LocalTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class TaskServiceImpl implements TaskService{
 
@@ -26,29 +25,21 @@ public class TaskServiceImpl implements TaskService{
 
     private final DayRepository dayRepository;
 
-    public TaskServiceImpl(TaskRepository taskRepository, ManagerRepository managerRepository, EmployeeRepository employeeRepository, DayRepository dayRepository) {
+    private final TaskMapper taskMapper;
+
+    public TaskServiceImpl(TaskRepository taskRepository, ManagerRepository managerRepository, EmployeeRepository employeeRepository, DayRepository dayRepository, TaskMapper taskMapper) {
         this.taskRepository = taskRepository;
         this.managerRepository = managerRepository;
         this.employeeRepository = employeeRepository;
         this.dayRepository = dayRepository;
+        this.taskMapper = taskMapper;
     }
 
     @Override
     @Transactional(rollbackOn = {MessagingException.class,ObjectNotFoundException.class})
     public void saveTask(TaskDTO taskDTO) {
-//            taskRepository.save(
-//                    Task.builder()
-//                    .name(taskDTO.getName())
-//                    .day(dayRepository.findById(taskDTO.getDay().getId()).orElse(null))
-//                    .description(taskDTO.getDescription())
-//                    .beginningOfTask(LocalTime.parse(taskDTO.getBeginningOfTask()))
-//                    .endOfTask(LocalTime.parse(taskDTO.getEndOfTask()))
-//                    .manager(managerRepository.findById(taskDTO.getManager().getId()).orElse(null))
-//                    .employees(taskDTO.getEmployees().stream()
-//                            .map(employeeDTO -> employeeRepository.findById(employeeDTO.getId()).orElse(null))
-//                            .collect(Collectors.toList())
-//                    )
-//                    .build());
+        Task task = taskMapper.taskDTOToTask(taskDTO);
+        taskRepository.save(task);
     }
 
     @Override
@@ -64,8 +55,8 @@ public class TaskServiceImpl implements TaskService{
     }
 
     @Override
-    public List<Task> readTaskByDayAndEmployee(Employee employee, Day day) {
-        return taskRepository.findAllByDayAndEmployeesContains(day,employee);
+    public List<Task> readTaskEmployee(Employee employee) {
+        return taskRepository.findAllByEmployeesContains(employee);
     }
 
     @Override

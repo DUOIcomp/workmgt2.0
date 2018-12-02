@@ -4,16 +4,25 @@ import com.duoi.workmgt.domain.Day;
 import com.duoi.workmgt.dto.DayDTO;
 import com.duoi.workmgt.dto.TaskDTO;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 
 import java.util.stream.Collectors;
 
 import static TestObjectFactory.Factory.createTestDay;
-import static org.junit.Assert.*;
 
 public class DayMapperTest {
 
-    private DayMapper dayMapper = new DayMapper();
+    @Mock
+    TaskMapper taskMapper;
+
+    private DayMapper dayMapper;
+
+    @Before
+    public void setUp(){
+        dayMapper = new DayMapper(taskMapper);
+    }
 
     @Test
     public void dayToDayDTO() {
@@ -28,5 +37,11 @@ public class DayMapperTest {
 
     @Test
     public void dayDTOtoDay() {
+        Day day = createTestDay();
+        DayDTO dayDTO = dayMapper.dayToDayDTO(day);
+
+        Day testDay = dayMapper.dayDTOtoDay(dayDTO);
+
+        Assert.assertEquals(day,testDay);
     }
 }

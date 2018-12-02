@@ -31,7 +31,6 @@ public class Factory {
         employee.setLastName("employeeLastName");
         employee.setFirstName("employeeFirstName");
         employee.setActivated(true);
-
         return employee;
     }
 
@@ -39,8 +38,6 @@ public class Factory {
         Day day = new Day();
         day.setDate(LocalDate.of(2018,02,19));
         day.setDayId(1L);
-
-
         return day;
     }
 
@@ -48,16 +45,14 @@ public class Factory {
         Company company = new Company();
         company.setCompanyName("TestCompanyName");
         company.setId(3L);
-
-
         return company;
     }
 
     public static Task createTestTask(){
         Task task = new Task();
         task.setTaskId(1L);
-        task.setDay(createTestDay());
         task.setManager(createTestManager());
+        task.getEmployees().add(createTestEmployee());
         task.setName("taskName");
         task.setDescription("TaskDescription");
         task.setBeginningOfTask(LocalTime.of(11,15));

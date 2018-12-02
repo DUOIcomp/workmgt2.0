@@ -19,8 +19,6 @@ public class TaskDTO {
 
     private Long taskId;
 
-    private LocalDate day;
-
     @NotBlank
     private String name;
 
@@ -44,7 +42,6 @@ public class TaskDTO {
 
     public TaskDTO(Task task){
         this.taskId = task.getTaskId();
-        this.day = task.getDay().getDate();
         this.name = task.getName();
         this.description = task.getDescription();
         this.manager = new UserDTO(task.getManager());
@@ -59,7 +56,6 @@ public class TaskDTO {
     public String toString() {
         return "TaskDTO{" +
                 "taskId=" + taskId +
-                ", day=" + day +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", employees=" + employees +

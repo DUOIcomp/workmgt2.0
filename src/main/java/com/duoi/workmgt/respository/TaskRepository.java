@@ -12,9 +12,7 @@ public interface TaskRepository extends CrudRepository<Task, Long> {
 
     Optional<Task> findByName(String name);
 
-    List<Task>  findAllByDay(Day day);
-
     List<Task> findAllByManager(Manager manager);
 
-    List<Task> findAllByDayAndEmployeesContains(Day day,Employee employees);
+    List<Task> findAllByEmployeesContains(Employee employees);
 }

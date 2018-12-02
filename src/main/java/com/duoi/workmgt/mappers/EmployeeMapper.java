@@ -11,6 +11,6 @@ public class EmployeeMapper {
 
     //TODO
     public Employee userDTOToEmployee(UserDTO userDTO){
-        return null;
+        return new Employee();
     }
 }

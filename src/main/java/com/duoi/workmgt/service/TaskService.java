@@ -11,7 +11,7 @@ public interface TaskService {
     void saveTask(TaskDTO taskDTO);
     Task readTaskById(Long id);
     Task readTaskByName(String name);
-    List<Task> readTaskByDayAndEmployee(Employee employee, Day day);
+    List<Task> readTaskEmployee(Employee employee);
     void deleteTask(Long taskId);
     void deleteAllTasks();
 }

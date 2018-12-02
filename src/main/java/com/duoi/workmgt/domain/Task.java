@@ -20,9 +20,6 @@ public class Task {
     @GeneratedValue
     private Long taskId;
 
-    @ManyToOne(targetEntity = Day.class)
-    private Day day;
-
     private String name;
 
     private String description;
@@ -43,7 +40,6 @@ public class Task {
     public String toString() {
         return "Task{" +
                 "taskId=" + taskId +
-                ", day=" + day.getDate()+
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", employees=" + employees +

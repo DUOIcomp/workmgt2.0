@@ -11,6 +11,6 @@ public class ManagerMapper {
 
     //TODO
     public Manager userDTOToManager(UserDTO userDTO){
-        return null;
+        return new Manager();
     }
 }
