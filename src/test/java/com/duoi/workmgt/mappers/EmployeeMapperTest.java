@@ -1,6 +1,7 @@
 package com.duoi.workmgt.mappers;
 
 import com.duoi.workmgt.domain.Employee;
+import com.duoi.workmgt.domain.User;
 import com.duoi.workmgt.dto.UserDTO;
 import org.junit.Assert;
 import org.junit.Test;
@@ -18,6 +19,7 @@ public class EmployeeMapperTest {
 
         UserDTO employeeDTO = employeeMapper.employeeToUserDTO(employee);
 
+
         Assert.assertEquals(employee.getUserId(),employeeDTO.getId());
         Assert.assertEquals(employee.getEmail(),employeeDTO.getEmail());
         Assert.assertEquals(employee.getLogin(),employeeDTO.getLogin());
@@ -28,5 +30,11 @@ public class EmployeeMapperTest {
 
     @Test
     public void userDTOToEmployee() {
+        Employee employee = createTestEmployee();
+        UserDTO userDTO = employeeMapper.employeeToUserDTO(employee);
+
+        Employee testEmployee = employeeMapper.userDTOToEmployee(userDTO);
+
+        Assert.assertEquals(employee,testEmployee);
     }
 }

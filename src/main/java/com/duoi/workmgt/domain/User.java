@@ -9,6 +9,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.Objects;
 
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
@@ -55,5 +56,24 @@ public abstract class User {
                 ", email='" + email + '\'' +
                 ", activated=" + activated +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return isActivated() == user.isActivated() &&
+                Objects.equals(getUserId(), user.getUserId()) &&
+                Objects.equals(getLogin(), user.getLogin()) &&
+                Objects.equals(getPassword(), user.getPassword()) &&
+                Objects.equals(getFirstName(), user.getFirstName()) &&
+                Objects.equals(getLastName(), user.getLastName()) &&
+                Objects.equals(getEmail(), user.getEmail());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getUserId(), getLogin(), getPassword(), getFirstName(), getLastName(), getEmail(), isActivated());
     }
 }

@@ -2,6 +2,7 @@ package com.duoi.workmgt.dto;
 
 import com.duoi.workmgt.domain.Company;
 import com.duoi.workmgt.domain.User;
+import com.google.common.collect.Lists;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,13 +19,13 @@ public class CompanyDTO {
     private String companyName;
 
 
-    private List<DayDTO> calendar;
+    private List<DayDTO> calendar = Lists.newArrayList();
 
 
-    private List<UserDTO> managers;
+    private List<UserDTO> managers = Lists.newArrayList();
 
 
-    private List<UserDTO> employees;
+    private List<UserDTO> employees = Lists.newArrayList();
 
 
     public CompanyDTO() {
@@ -43,15 +44,12 @@ public class CompanyDTO {
         this.companyName = company.getCompanyName();
         this.calendar = company.getCalendar().stream()
                     .map(DayDTO::new)
-                    .filter(Objects::nonNull)
                     .collect(Collectors.toList());
         this.managers = company.getManagers().stream()
                     .map(UserDTO::new)
-                    .filter(Objects::nonNull)
                     .collect(Collectors.toList());
         this.employees = company.getEmployees().stream()
                     .map(UserDTO::new)
-                    .filter(Objects::nonNull)
                     .collect(Collectors.toList());
     }
 

@@ -32,5 +32,11 @@ public class CompanyMapperTest {
 
     @Test
     public void companyDTOToCompany() {
+        Company company = createTestCompany();
+        CompanyDTO companyDTO = companyMapper.companyToCompanyDTO(company);
+
+        Company testCompany = companyMapper.companyDTOToCompany(companyDTO);
+
+        Assert.assertEquals(company,testCompany);
     }
 }

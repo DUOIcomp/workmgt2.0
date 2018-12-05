@@ -7,14 +7,10 @@ import java.util.stream.Collectors;
 
 public class TaskMapper {
 
-    private final EmployeeMapper employeeMapper;
+    private final EmployeeMapper employeeMapper = new EmployeeMapper();
 
-    private final ManagerMapper managerMapper;
+    private final ManagerMapper managerMapper = new ManagerMapper();
 
-    public TaskMapper(EmployeeMapper employeeMapper, ManagerMapper managerMapper) {
-        this.employeeMapper = employeeMapper;
-        this.managerMapper = managerMapper;
-    }
 
     public TaskDTO taskToTaskDTO(Task task) {
         return new TaskDTO(task);

@@ -17,17 +17,11 @@ import static org.junit.Assert.*;
 
 public class TaskMapperTest {
 
-    @Mock
-    private EmployeeMapper employeeMapper;
-
-    @Mock
-    private ManagerMapper managerMapper;
-
     private TaskMapper taskMapper;
 
     @Before
     public void setUp(){
-        taskMapper = new TaskMapper(employeeMapper,managerMapper);
+        taskMapper = new TaskMapper();
     }
 
     @Test
@@ -53,6 +47,6 @@ public class TaskMapperTest {
         TaskDTO taskDTO = taskMapper.taskToTaskDTO(task);
         Task testTask = taskMapper.taskDTOToTask(taskDTO);
 
-        Assert.assertEquals(task,testTask);
+        Assert.assertEquals(testTask, task);
     }
 }

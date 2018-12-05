@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -42,5 +43,23 @@ public class Company {
                 "id=" + id +
                 ", companyName='" + companyName + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Company)) return false;
+        Company company = (Company) o;
+        return Objects.equals(getId(), company.getId()) &&
+                Objects.equals(getCompanyName(), company.getCompanyName()) &&
+                Objects.equals(getCalendar(), company.getCalendar()) &&
+                Objects.equals(getManagers(), company.getManagers()) &&
+                Objects.equals(getEmployees(), company.getEmployees());
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(getId(), getCompanyName(), getCalendar(), getManagers(), getEmployees());
     }
 }

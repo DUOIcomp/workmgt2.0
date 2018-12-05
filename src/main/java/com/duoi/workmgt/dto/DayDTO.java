@@ -1,6 +1,7 @@
 package com.duoi.workmgt.dto;
 
 import com.duoi.workmgt.domain.Day;
+import com.google.common.collect.Lists;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +17,7 @@ public class DayDTO {
 
     private LocalDate date;
 
-    private List<TaskDTO> tasks;
+    private List<TaskDTO> tasks = Lists.newArrayList();
 
     public DayDTO(){
     }

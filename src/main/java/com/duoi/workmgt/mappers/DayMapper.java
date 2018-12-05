@@ -6,11 +6,7 @@ import java.util.stream.Collectors;
 
 public class DayMapper {
 
-    private final TaskMapper taskMapper;
-
-    public DayMapper(TaskMapper taskMapper) {
-        this.taskMapper = taskMapper;
-    }
+    private final TaskMapper taskMapper = new TaskMapper();
 
     public DayDTO dayToDayDTO(Day day){
         return new DayDTO(day);

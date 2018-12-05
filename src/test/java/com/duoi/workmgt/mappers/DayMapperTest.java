@@ -14,14 +14,11 @@ import static TestObjectFactory.Factory.createTestDay;
 
 public class DayMapperTest {
 
-    @Mock
-    TaskMapper taskMapper;
-
     private DayMapper dayMapper;
 
     @Before
     public void setUp(){
-        dayMapper = new DayMapper(taskMapper);
+        dayMapper = new DayMapper();
     }
 
     @Test

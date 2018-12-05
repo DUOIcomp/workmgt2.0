@@ -8,6 +8,7 @@ import javax.validation.constraints.Size;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -35,6 +36,7 @@ public class Task {
     private LocalTime beginningOfTask;
 
     private LocalTime endOfTask;
+
 
     @Override
     public String toString() {

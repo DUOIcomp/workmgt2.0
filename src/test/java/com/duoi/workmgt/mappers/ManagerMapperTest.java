@@ -28,5 +28,11 @@ public class ManagerMapperTest {
 
     @Test
     public void userDTOToManager() {
+        Manager manager = createTestManager();
+        UserDTO userDTO = managerMapper.managerToUserDTO(manager);
+
+        Manager testManager = managerMapper.userDTOToManager(userDTO);
+
+        Assert.assertEquals(manager,testManager);
     }
 }
