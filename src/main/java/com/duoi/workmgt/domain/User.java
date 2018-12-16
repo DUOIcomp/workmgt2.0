@@ -11,13 +11,13 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
+@Table(name = "user")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class User {
+public class User {
     @Id
     @GeneratedValue
     private Long userId;
@@ -26,11 +26,11 @@ public abstract class User {
     @Pattern(regexp = "^[_.@A-Za-z0-9-]*$" , message = "Incorrect login pattern")
     @Size(min = 3,max = 50)
     @Column(unique = true,nullable = false)
-    private String login;
+    private String username;
 
-    @JsonIgnore
     @NotNull
-    @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$" ,message = "Incorrect password pattern")
+    @Size(min = 6, max = 100)
+    @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,100}$" ,message = "Incorrect password pattern")
     private String password;
 
     @Size(max = 50)
@@ -44,13 +44,16 @@ public abstract class User {
     @Column(length = 254, unique = true)
     private String email;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     private boolean activated;
 
     @Override
     public String toString() {
         return "User{" +
                 "userId=" + userId +
-                ", login='" + login + '\'' +
+                ", username='" + username + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
@@ -65,7 +68,7 @@ public abstract class User {
         User user = (User) o;
         return isActivated() == user.isActivated() &&
                 Objects.equals(getUserId(), user.getUserId()) &&
-                Objects.equals(getLogin(), user.getLogin()) &&
+                Objects.equals(getUsername(), user.getUsername()) &&
                 Objects.equals(getPassword(), user.getPassword()) &&
                 Objects.equals(getFirstName(), user.getFirstName()) &&
                 Objects.equals(getLastName(), user.getLastName()) &&
@@ -74,6 +77,6 @@ public abstract class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getUserId(), getLogin(), getPassword(), getFirstName(), getLastName(), getEmail(), isActivated());
+        return Objects.hash(getUserId(), getUsername(), getPassword(), getFirstName(), getLastName(), getEmail(), isActivated());
     }
 }
